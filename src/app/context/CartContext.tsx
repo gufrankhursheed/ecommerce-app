@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useEffect, useState, ReactNode, useMemo, useContext } from "react";
+import React, { createContext, useEffect, useState, ReactNode, useContext } from "react";
 
 interface CartContextType {
     cartProducts: string[];
@@ -48,12 +48,6 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
         }
     };
 
-    const value = useMemo(() => ({
-        cartProducts,
-        addProduct,
-        removeProduct,
-        clearCart
-    }), [cartProducts]);
 
     return (
         <CartContext.Provider value={{cartProducts, addProduct, removeProduct, clearCart}}>

@@ -6,10 +6,10 @@ import toast from "react-hot-toast";
 import Link from "next/link";
 import Spinner from "./Spinner";
 import { User } from "@auth/core/types";
-import { signIn } from "@/auth";
 import { handleSignIn } from "@/app/actions/signInAction";
 import Success from "./Success";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import Image from "next/image";
 
 interface ProductImage {
     id: string;
@@ -44,7 +44,7 @@ export default function CartComponent({ user }: { user?: User }) {
             clearCart();
             toast.success("Order successfully placed");
         }
-    }, [searchParams]);
+    }, [searchParams,clearCart]);
 
 
     useEffect(() => {
@@ -159,7 +159,7 @@ export default function CartComponent({ user }: { user?: User }) {
                                 {products?.length > 0 &&
                                     products.map((product) => (
                                         <li key={product._id} className="flex items-center gap-4 justify-between">
-                                            <img src={product.images[0].src} alt="images" className="w-24 h-20 object-cover" />
+                                            <Image src={product.images[0].src} alt="images" className="w-24 h-20 object-cover" />
                                             <div >
                                                 <h3 className="md:text-lg  text-gray-900 ">{product.title}</h3>
                                                 <dl className="mt-1 space-y-px md:text-md text-gray-900">

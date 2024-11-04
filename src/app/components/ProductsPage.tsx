@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useCart } from "../context/CartContext";
 import Spinner from "./Spinner";
+import Image from "next/image";
 
 interface ProductImage {
     id: string;
@@ -21,9 +22,6 @@ interface Product {
     images: ProductImage[];
 }
 
-interface HeroProps {
-    product: Product | null;
-}
 
 export default function ProductsPage() {
     const [products, setProducts] = useState<Product[]>([]);
@@ -61,8 +59,8 @@ export default function ProductsPage() {
                         <div className="group block overflow-hidden border rounded-xl border-opacity-10">
                             <Link href={`/products/${product._id}`}>
                                 <div className="relative md:h-[300px] h-[200px]">
-                                    <img src={product.images[0].src} alt="image" className="absolute inset-0 h-full w-full object-contain opacity-100 group-hover:opacity-0" />
-                                    <img src={product.images[1].src} alt="image" className="absolute inset-0 h-full w-full object-contain opacity-0 group-hover:opacity-100" />
+                                    <Image src={product.images[0].src} alt="image" className="absolute inset-0 h-full w-full object-contain opacity-100 group-hover:opacity-0" />
+                                    <Image src={product.images[1].src} alt="image" className="absolute inset-0 h-full w-full object-contain opacity-0 group-hover:opacity-100" />
                                 </div>
                                 <div className="relative px-3 md:p-3 border-t">
                                     <h3 className="text-md text-gray-900 group-hover:underline line-clamp-2 truncate">{product.title}</h3>

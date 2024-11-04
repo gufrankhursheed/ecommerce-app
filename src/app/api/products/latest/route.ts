@@ -1,8 +1,8 @@
 import connect from "@/connection/mongoDB";
 import { Product } from "@/models/Product";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
-export async function GET(request: NextRequest) {
+export async function GET() {
     try {
         await connect();
         const newProducts = await Product.find({}, null, { sort: { '_id': 1 }, limit: 5 });

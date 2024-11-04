@@ -1,22 +1,10 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import { Poppins } from "next/font/google"
 import "./globals.css";
 import { CartContextProvider } from './context/CartContext';
 import { Toaster } from "react-hot-toast";
 import { auth } from "@/auth";
 import Header from "./components/Header";
-
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
 
 const pop = Poppins({ subsets: ["latin"], weight: '400' })
 

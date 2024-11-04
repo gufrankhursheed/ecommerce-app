@@ -2,6 +2,7 @@ import connect from "@/connection/mongoDB";
 import { Order } from "@/models/Order";
 import { Product } from "@/models/Product";
 import { NextRequest, NextResponse } from "next/server";
+import Stripe from 'stripe';
 
 interface ProductImage {
     id: string;
@@ -18,7 +19,7 @@ interface Product {
     images: ProductImage[];
 }
 
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
 
 export async function POST(req: NextRequest) {
@@ -30,7 +31,7 @@ export async function POST(req: NextRequest) {
 
         const productsInfo: Product[] = await Product.find({ _id: uniqueIds })
 
-        let line_items = []
+        const line_items = []
 
         for (const productId of uniqueIds) {
             const productInfo = productsInfo.find(p => p._id.toString() === productId)

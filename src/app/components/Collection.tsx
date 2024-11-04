@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Spinner from "./Spinner";
+import Image from "next/image";
 
 interface ProductImage {
     id: string;
@@ -18,9 +19,6 @@ interface Product {
     images: ProductImage[];
 }
 
-interface HeroProps {
-    product: Product | null;
-}
 
 export default function Collection() {
     const collectionId = "67247e695db9d3033222f83b";
@@ -82,12 +80,12 @@ export default function Collection() {
                         </div>
                         <div className="lg:w-1/3 lg:mb-0 mb-6 p-4 md:px-40 lg:px-0">
                             <div className="h-full flex items-center mx-14 md:mx-20">
-                                <img src={collectionProduct.images[0].src} alt="image" className="h-72" />
+                                <Image src={collectionProduct.images[0].src} alt="image" className="h-72" />
                             </div>
                         </div>
                         <div className="lg:w-1/3 lg:mb-0 mb-6 p-4 md:px-40 lg:px-0">
                             <div className="h-full flex items-center mx-14 md:mx-20">
-                                <img src={collectionProduct.images[1].src} alt="image" className="h-72" />
+                                <Image src={collectionProduct.images[1].src} alt="image" className="h-72" />
                             </div>
                         </div>
                     </div>

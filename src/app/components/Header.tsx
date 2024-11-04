@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useCart } from "../context/CartContext";
 import { User } from "@auth/core/types";
+import Image from "next/image";
 
 
 export default function Header({ user }: { user?: User }) {
@@ -39,7 +40,7 @@ export default function Header({ user }: { user?: User }) {
                             <div className="sm:flex sm:gap-2 flex items-center border-r-2 border-orange-500 pr-4">
                                 {user?.image &&
                                     <div className="h-9 w-9">
-                                        <img src={user.image} alt="image" className="h-9 w-9 rounded-full object-cover object-center" />
+                                        <Image src={user.image} alt="image" className="h-9 w-9 rounded-full object-cover object-center" />
                                     </div>
                                 }
                             </div>
