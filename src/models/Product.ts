@@ -23,6 +23,11 @@ const ProductSchema = new Schema({
         required: true,
     },
     images: [ImageSchema],
+    stock: {
+        type: Number, 
+        required: true, 
+        default: 0 
+    }
 })
 
 export const Product = models.Product || model('Product',ProductSchema)

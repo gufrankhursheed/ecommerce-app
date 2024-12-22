@@ -47,6 +47,12 @@ export async function POST(req: NextRequest) {
                         unit_amount: quantity * productInfo.price * 100,
                     }
                 })
+
+                await Product.updateOne(
+                    { _id: productId },
+                    { $inc: { stock: -quantity } } // Decrease stock by quantity
+                );
+                
             }
         }
 

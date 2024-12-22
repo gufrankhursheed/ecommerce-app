@@ -20,6 +20,7 @@ interface Product {
     description: string;
     price: number;
     images: ProductImage[];
+    stock: number
 }
 
 
@@ -83,13 +84,19 @@ export default function NewProducts() {
                                             </p>
                                         </div>
                                     </Link>
-                                    <button type="button" onClick={() => { addProduct(product._id); toast.success('Item added to cart') }} className="inline-flex items-center gap-1.5 rounded-lg border ml-28 md:ml-56 lg:mx-0 px-2 py-2.5  border-orange-500 bg-orange-500 text-white transition hover:border-orange-400 hover:bg-orange-400 text-center text-sm font-medium shadow-sm focus:ring focus:ring-gray-100 disabled:cursor-not-allowed disabled:border-gray-100 disabled:bg-gray-50 disabled:text-gray-400">
-                                        Add to Cart
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
-                                        </svg>
+                                    {product.stock === 0 ? (
+                                        <span className=" items-center gap-2 rounded-lg border my-1 md:my-0 md:ml-56 lg:mx-1 px-3 py-2.5 text-white transition border-orange-400 bg-orange-400 text-center text-md font-medium shadow-sm focus:ring focus:ring-gray-100 disabled:cursor-not-allowed disabled:border-gray-100 disabled:bg-gray-50 disabled:text-gray-400">
+                                            Out of Stock
+                                        </span>
+                                    ) : (
+                                        <button type="button" onClick={() => { addProduct(product._id); toast.success('Item added to cart') }} className="inline-flex items-center gap-1.5 rounded-lg border my-1 md:my-0 md:ml-56 lg:mx-0 px-2 py-2.5  border-orange-500 bg-orange-500 text-white transition hover:border-orange-400 hover:bg-orange-400 text-center text-sm font-medium shadow-sm focus:ring focus:ring-gray-100 disabled:cursor-not-allowed disabled:border-gray-100 disabled:bg-gray-50 disabled:text-gray-400">
+                                            Add to Cart
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                                            </svg>
 
-                                    </button>
+                                        </button>
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -102,6 +109,4 @@ export default function NewProducts() {
     return null;
 }
 
-/*
-{ products }: HeroProps
-*/
+
