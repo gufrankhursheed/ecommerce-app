@@ -159,7 +159,7 @@ export default function CartComponent({ user }: { user?: User }) {
                                 {products?.length > 0 &&
                                     products.map((product) => (
                                         <li key={product._id} className="flex items-center gap-4 justify-between">
-                                            <Image src={product.images[0].src} alt="images" className="w-24 h-20 object-cover" />
+                                            <Image src={product.images[0].src} height={100} width={100} alt="images" className="w-24 h-20 object-cover" />
                                             <div >
                                                 <h3 className="md:text-lg  text-gray-900 ">{product.title}</h3>
                                                 <dl className="mt-1 space-y-px md:text-md text-gray-900">

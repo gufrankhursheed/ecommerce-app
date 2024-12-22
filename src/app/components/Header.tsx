@@ -40,7 +40,7 @@ export default function Header({ user }: { user?: User }) {
                             <div className="sm:flex sm:gap-2 flex items-center border-r-2 border-orange-500 pr-4">
                                 {user?.image &&
                                     <div className="h-9 w-9">
-                                        <Image src={user.image} alt="image" className="h-9 w-9 rounded-full object-cover object-center" />
+                                        <Image src={user.image} alt="image"height={100} width={100} className="h-9 w-9 rounded-full object-cover object-center" />
                                     </div>
                                 }
                             </div>

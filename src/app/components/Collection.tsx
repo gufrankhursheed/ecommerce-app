@@ -80,12 +80,12 @@ export default function Collection() {
                         </div>
                         <div className="lg:w-1/3 lg:mb-0 mb-6 p-4 md:px-40 lg:px-0">
                             <div className="h-full flex items-center mx-14 md:mx-20">
-                                <Image src={collectionProduct.images[0].src} alt="image" className="h-72" />
+                                <Image src={collectionProduct.images[0].src} height={1000} width={1000} alt="image" className="h-72" />
                             </div>
                         </div>
                         <div className="lg:w-1/3 lg:mb-0 mb-6 p-4 md:px-40 lg:px-0">
                             <div className="h-full flex items-center mx-14 md:mx-20">
-                                <Image src={collectionProduct.images[1].src} alt="image" className="h-72" />
+                                <Image src={collectionProduct.images[1].src} height={1000} width={1000} alt="image" className="h-72" />
                             </div>
                         </div>
                     </div>
