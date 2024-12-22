@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useCart } from "../context/CartContext";
 import toast from "react-hot-toast";
 import Link from "next/link";
@@ -38,14 +38,18 @@ export default function CartComponent({ user }: { user?: User }) {
     const [isSuccess, setIsSuccess] = useState(false);
     const searchParams = useSearchParams();
 
+    const successHandled = useRef(false); 
+
     useEffect(() => {
-        if (searchParams?.get("success")) {
+        const success = searchParams?.get("success");
+
+        if (success && !successHandled.current) {
+            successHandled.current = true; 
             setIsSuccess(true);
             clearCart();
             toast.success("Order successfully placed");
         }
-    }, [searchParams,clearCart]);
-
+    }, [searchParams, clearCart]);
 
     useEffect(() => {
         if (cartProducts.length > 0) {
