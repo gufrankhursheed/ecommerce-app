@@ -74,7 +74,7 @@ export default function Product() {
                 <div className="lg:rounded-lg overflow-hidden px-4 py-2 md:px-2">
                     <Image
                         src={productInfo.images[0].src}
-                        alt="product-image"
+                        alt="product-image" width={400} height={420}
                         className={productInfo.title === "Nike Air Force" ? "w-full h-full md:h-[90vh] object-contain object-center border rounded-lg bg-gray-100" : "w-full h-full object-contain object-center border rounded-lg"}
                     />
                 </div>
@@ -82,7 +82,7 @@ export default function Product() {
                 <div className="grid grid-cols-2 lg:grid-cols-1 lg:gap-y-4 px-2 py-2 gap-2 md:gap-2">
                     {productInfo.images.slice(1, 3).map((image, index) => (
                         <div className="lg:aspect-h-2 lg:aspect-w-3 lg:rounded-lg overflow-hidden" key={index}>
-                            <Image src={image.src} alt="product-image" className={productInfo.title === "Nike Air Force" ? "w-full h-full md:h-[44vh] object-cover object-center border border-secondary rounded-lg" : "w-full h-full md:h-[44vh] object-contain object-center border border-secondary rounded-lg"} />
+                            <Image src={image.src} alt="product-image" width={300} height={320} className={productInfo.title === "Nike Air Force" ? "w-full h-full md:h-[44vh] object-cover object-center border border-secondary rounded-lg" : "w-full h-full md:h-[44vh] object-contain object-center border border-secondary rounded-lg"} />
                         </div>
                     ))}
                 </div>
@@ -123,9 +123,3 @@ export default function Product() {
     </>
 }
 
-/*
-lg:aspect-h-2 lg:aspect-w-2 lg:rounded-lg overflow-hidden
- md:h-[90vh] object-cover object-center
-
- "w-full h-full object-contain object-center border rounded-lg bg-gray-100"
-*/

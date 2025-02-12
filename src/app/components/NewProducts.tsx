@@ -67,8 +67,8 @@ export default function NewProducts() {
                             <div className="group block overflow-hidden border border-gray-800  rounded-xl border-opacity-10">
                                 <Link href={`/products/${product._id}`}>
                                     <div className="relative h-[300px] sm:h-[300px] border-b">
-                                        <Image src={product.images[0].src} alt="img" className="absolute inset-0 h-full w-full object-contain opacity-100 hover:opacity-0" />
-                                        <Image src={product.images[1].src} alt="img" className="absolute inset-0 h-full w-full object-contain opacity-0 hover:opacity-100" />
+                                        <Image src={product.images[0].src} alt="img" width={300} height={320} className="absolute inset-0 h-full w-full object-contain opacity-100 hover:opacity-0" />
+                                        <Image src={product.images[1].src} alt="img" width={300} height={320} className="absolute inset-0 h-full w-full object-contain opacity-0 hover:opacity-100" />
                                     </div>
 
                                     <h3 className="mt-2 p-2 text-md text-gray-700 group-hover:underline group-hover:underline-offset-4">
@@ -101,7 +101,3 @@ export default function NewProducts() {
 
     return null;
 }
-
-/*
-{ products }: HeroProps
-*/

@@ -7,9 +7,9 @@ import Link from "next/link";
 import Spinner from "./Spinner";
 import { User } from "@auth/core/types";
 import { handleSignIn } from "@/app/actions/signInAction";
-import Success from "./Success";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
+import Success from "./Success";
 
 interface ProductImage {
     id: string;
@@ -35,16 +35,18 @@ export default function CartComponent({ user }: { user?: User }) {
     const [city, setCity] = useState('')
     const [state, setState] = useState('')
     const [zip, setZip] = useState('');
-    const [isSuccess, setIsSuccess] = useState(false);
     const searchParams = useSearchParams();
+    const [isSuccess, setIsSuccess] = useState(false);
 
     useEffect(() => {
-        if (searchParams?.get("success")) {
+        const successParam = searchParams?.get("success");
+        if (successParam === "true") {
+            console.log("Order was successful");
             setIsSuccess(true);
-            clearCart();
-            toast.success("Order successfully placed");
+        } else {
+            console.log("No success parameter found");
         }
-    }, [searchParams,clearCart]);
+    }, [searchParams]);
 
 
     useEffect(() => {
@@ -67,9 +69,17 @@ export default function CartComponent({ user }: { user?: User }) {
                     setLoading(false);
                 })
         } else {
-            setProducts([])
+            console.log("Cart is empty");
+            setProducts([]);
         }
     }, [cartProducts])
+
+    useEffect(() => {
+        if (isSuccess) {
+            clearCart();
+            toast.success("Order successfully placed");
+        }
+    }, [isSuccess]);
 
     const increaseProduct = (id: string) => {
         addProduct(id)
@@ -90,7 +100,7 @@ export default function CartComponent({ user }: { user?: User }) {
 
     for (const productId of cartProducts) {
         const product = products.find((p: Product) => p._id === productId);
-        const price = product ? product.price : 0; // Default to 0 if product is undefined
+        const price = product ? product.price : 0;
         total += price;
     }
 
@@ -114,7 +124,6 @@ export default function CartComponent({ user }: { user?: User }) {
 
             if (response.ok) {
                 const result = await response.json();
-                // Redirect to Stripe checkout session URL
                 window.location.href = result.url;
             } else {
                 const result = await response.json();
@@ -126,18 +135,16 @@ export default function CartComponent({ user }: { user?: User }) {
         }
     }
 
-    if (isSuccess) {
-        return (
-            <Success />
-        )
-    }
-
     if (loading) {
         return (
             <div className='flex items-center justify-center w-screen h-screen'>
                 <Spinner />
             </div>
         );
+    }
+
+    if (isSuccess) {
+        return <Success />;
     }
 
 
@@ -159,7 +166,7 @@ export default function CartComponent({ user }: { user?: User }) {
                                 {products?.length > 0 &&
                                     products.map((product) => (
                                         <li key={product._id} className="flex items-center gap-4 justify-between">
-                                            <Image src={product.images[0].src} alt="images" className="w-24 h-20 object-cover" />
+                                            <Image src={product.images[0].src} alt="images" width={200} height={250} className="w-24 h-20 object-cover" />
                                             <div >
                                                 <h3 className="md:text-lg  text-gray-900 ">{product.title}</h3>
                                                 <dl className="mt-1 space-y-px md:text-md text-gray-900">

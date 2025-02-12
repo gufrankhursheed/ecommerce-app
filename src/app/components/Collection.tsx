@@ -21,7 +21,7 @@ interface Product {
 
 
 export default function Collection() {
-    const collectionId = "67247e695db9d3033222f83b";
+    const collectionId = "67aa2b7b220f6d2d38488047";
 
     const [collectionProduct, setCollectionProduct] = useState<Product>()
     const [loading, setLoading] = useState<boolean>(true);
@@ -78,14 +78,14 @@ export default function Collection() {
                                 </button>
                             </div>
                         </div>
-                        <div className="lg:w-1/3 lg:mb-0 mb-6 p-4 md:px-40 lg:px-0">
-                            <div className="h-full flex items-center mx-14 md:mx-20">
-                                <Image src={collectionProduct.images[0].src} alt="image" className="h-72" />
+                        <div className="lg:w-1/3 lg:mb-0 mb-3 p-4 md:px-40 lg:px-0">
+                            <div className="h-full flex items-center mx-14 md:mx-10">
+                                <Image src={collectionProduct.images[0].src} alt="image" width={300} height={320} className="h-full w-full" />
                             </div>
                         </div>
                         <div className="lg:w-1/3 lg:mb-0 mb-6 p-4 md:px-40 lg:px-0">
-                            <div className="h-full flex items-center mx-14 md:mx-20">
-                                <Image src={collectionProduct.images[1].src} alt="image" className="h-72" />
+                            <div className="h-full flex items-center mx-14 md:mx-10">
+                                <Image src={collectionProduct.images[1].src} width={300} height={320} alt="image" className="h-full w-full" />
                             </div>
                         </div>
                     </div>
@@ -96,7 +96,3 @@ export default function Collection() {
 
     return null
 }
-
-/*
-{ product }: HeroProps
-*/

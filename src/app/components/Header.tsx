@@ -40,22 +40,22 @@ export default function Header({ user }: { user?: User }) {
                             <div className="sm:flex sm:gap-2 flex items-center border-r-2 border-orange-500 pr-4">
                                 {user?.image &&
                                     <div className="h-9 w-9">
-                                        <Image src={user.image} alt="image" className="h-9 w-9 rounded-full object-cover object-center" />
+                                        <Image src={user.image} alt="image" width={100} height={100} className="h-9 w-9 rounded-full object-cover object-center" />
                                     </div>
                                 }
                             </div>
                         ) : (
                             <Link
-                                className=" hidden sm:block px-5 py-2.5 text-sm font-medium border-r-2 border-orange-500  transition"
-                                href="#"
+                                className="inline-flex items-center justify-center gap-1.5 rounded border border-orange-500 bg-orange-500 px-2 py-1 md:px-5 md:py-1 text-white transition hover:border-orange-400 hover:bg-orange-400 focus:outline-none focus:ring"
+                                href="/login"
                             >
-                                Account
+                                Log in
                             </Link>
                         )}
 
                         <div className="flex items-center mx-3">
                             <Link
-                                className="group rounded-md px-2 py-2.5 text-md font-medium text-orange-500 transition hover:text-orange-400 sm:block"
+                                className="group px-2 py-2.5 text-md font-medium border-l-2 border-orange-500 text-orange-500 transition hover:text-orange-400 sm:block"
                                 href="/cart"
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
@@ -65,23 +65,6 @@ export default function Header({ user }: { user?: User }) {
                             <span className="text-orange-500 transition hover:text-orange-400 font-bold cursor-pointer">{cartProducts.length}</span>
                         </div>
                     </div>
-
-                    <button
-                        className="block rounded bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 md:hidden"
-                    >
-                        <span className="sr-only">Toggle menu</span>
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="size-5"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                        >
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                    </button>
-
                 </div>
             </div>
         </header>

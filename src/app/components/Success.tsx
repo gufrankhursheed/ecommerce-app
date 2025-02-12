@@ -5,9 +5,6 @@ export default function Success() {
         <div className="flex items-center justify-center h-screen">
             <div className="h-80">
                 <div >
-                    <div className="flex justify-center">
-                        <button className="rounded-lg border border-primary-500 bg-primary-500 px-5 py-2.5 text-center text-sm font-medium text-white shadow-sm transition-all hover:border-primary-700 hover:bg-primary-700 focus:ring focus:ring-primary-200 disabled:cursor-not-allowed disabled:border-primary-300 disabled:bg-primary-300">Toggle Modal</button>
-                    </div>
                     <div className="fixed inset-0 z-10 bg-secondary-700/50"></div>
                     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-0">
                         <div className="mx-auto w-full overflow-hidden rounded-lg bg-white shadow-xl sm:max-w-sm">
@@ -24,7 +21,7 @@ export default function Success() {
                                     </div>
                                 </div>
                                 <div className="mt-5 flex justify-end gap-3">
-                                    <Link href={"/products"} className="rounded-lg border w-full px-5 py-2.5 text-center text-white border-orange-500 bg-orange-500 hover:bg-orange-400 text-md font-medium shadow-sm transition-all disabled:cursor-not-allowed">Confirm</Link>
+                                    <Link href={"/products"} className="rounded-lg border w-full px-5 py-2.5 text-center text-white border-orange-500 bg-orange-500 hover:bg-orange-400 text-md font-medium shadow-sm transition-all disabled:cursor-not-allowed">Continue Shopping</Link>
                                 </div>
                             </div>
                         </div>

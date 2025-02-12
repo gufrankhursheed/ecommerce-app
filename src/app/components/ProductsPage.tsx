@@ -59,8 +59,8 @@ export default function ProductsPage() {
                         <div className="group block overflow-hidden border rounded-xl border-opacity-10">
                             <Link href={`/products/${product._id}`}>
                                 <div className="relative md:h-[300px] h-[200px]">
-                                    <Image src={product.images[0].src} alt="image" className="absolute inset-0 h-full w-full object-contain opacity-100 group-hover:opacity-0" />
-                                    <Image src={product.images[1].src} alt="image" className="absolute inset-0 h-full w-full object-contain opacity-0 group-hover:opacity-100" />
+                                    <Image src={product.images[0].src} alt="image" width={300} height={320} className="absolute inset-0 h-full w-full object-contain opacity-100 group-hover:opacity-0" />
+                                    <Image src={product.images[1].src} alt="image" width={300} height={320} className="absolute inset-0 h-full w-full object-contain opacity-0 group-hover:opacity-100" />
                                 </div>
                                 <div className="relative px-3 md:p-3 border-t">
                                     <h3 className="text-md text-gray-900 group-hover:underline line-clamp-2 truncate">{product.title}</h3>

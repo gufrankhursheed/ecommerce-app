@@ -100,24 +100,24 @@ export default function Hero() {
                     <div className="grid flex-shrink-0 grid-cols-1 gap-y-12 my-5 md:my-0">
                         {featuredProduct?.images[0] && (
                             <div className="w-72 h-80 overflow-hidden rounded-lg border border-secondary transform rotate-3 translate-x-4 hover:-rotate-6 hover:translate-x-8 transition-transform duration-300 ease-in-out">
-                                <Image src={featuredProduct.images[0].src} alt="hero-img" className="h-full w-full object-cover object-center" />
+                                <Image src={featuredProduct.images[0].src} alt="hero-img" width={300} height={320} className="h-full w-full object-cover object-center" />
                             </div>
                         )}
                         {featuredProduct?.images[1] && (
                             <div className="w-72 h-80 overflow-hidden rounded-lg border border-secondary transform rotate-3 translate-x-4 hover:-rotate-6 hover:translate-x-8 transition-transform duration-300 ease-in-out">
-                                <Image src={featuredProduct.images[1].src} alt="hero-img" className="h-full w-full object-cover object-center" />
+                                <Image src={featuredProduct.images[1].src} alt="hero-img" width={300} height={320} className="h-full w-full object-cover object-center" />
                             </div>
                         )}
                     </div>
                     <div className="grid flex-shrink-0 grid-cols-1 gap-y-12">
                         {featuredProduct?.images[2] && (
                             <div className="w-72 h-80 overflow-hidden rounded-lg border border-secondary transform rotate-3 translate-x-4 hover:-rotate-6 hover:translate-x-8 transition-transform duration-300 ease-in-out">
-                                <Image src={featuredProduct.images[2].src} alt="hero-img" className="h-full w-full object-cover object-center" />
+                                <Image src={featuredProduct.images[2].src} alt="hero-img" width={300} height={320} className="h-full w-full object-cover object-center" />
                             </div>
                         )}
                         {featuredProduct?.images[3] && (
                             <div className="w-72 h-80 overflow-hidden rounded-lg border border-secondary transform rotate-3 translate-x-4 hover:-rotate-6 hover:translate-x-8 transition-transform duration-300 ease-in-out">
-                                <Image src={featuredProduct.images[3].src} alt="hero-img" className="h-full w-full object-cover object-center" />
+                                <Image src={featuredProduct.images[3].src} alt="hero-img" width={300} height={320} className="h-full w-full object-cover object-center" />
                             </div>
                         )}
                     </div>
@@ -129,6 +129,3 @@ export default function Hero() {
     return null
 }
 
-/*
-{ product }: HeroProps
-*/
