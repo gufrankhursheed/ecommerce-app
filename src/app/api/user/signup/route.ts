@@ -5,35 +5,33 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
     try {
-        const { name, email, password } = await request.json();
-
-        if ([name, email, password].some(
-            (field) => (field?.trim() === "")
-        )) {
-            throw new Error("All fields are required")
-        }
-
-        const hashedPassword= await bcrypt.hash(password,10)
-
         await connect();
 
+        const { username, email, password } = await request.json();
+
+        if (!username || !email || !password || username.trim() === "" || email.trim() === "" || password.trim() === "") {
+            return NextResponse.json({ message: "All fields are required" }, { status: 400 });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10)
+
         const userExists = await User.findOne({
-            $or: [{ name }, { email }]
+            $or: [{ username }, { email }]
         })
 
         if (userExists) {
-            throw new Error("user with username or email already exists")
+            return NextResponse.json({ message: "User with this username or email already exists" }, { status: 400 });
         }
 
         await User.create({
-            name,
+            username,
             email,
             password: hashedPassword
         });
 
         return NextResponse.json({ message: "User registered" }, { status: 201 })
     } catch (error) {
-        console.error("User registeration faield", error);
+        console.error("User registeration failed", error);
         return NextResponse.json({ message: "User registeration failed" }, { status: 500 });
     }
 }
