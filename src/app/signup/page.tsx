@@ -30,7 +30,7 @@ const signup = () => {
             if (!res.ok) {
                 throw new Error("Signup failed");
             }
-            router.push("/");
+            router.push("/login");
         } catch (error) {
             console.log("error during signup ", error)
         }
