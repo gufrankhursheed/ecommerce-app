@@ -3,15 +3,19 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { handleSignIn } from "@/app/actions/signInAction";
+import { useRouter } from 'next/navigation';
 
 const login = () => {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
 
-    const handleSubmit = async (e: any) => {
+    const router = useRouter();
+
+    const [email, setEmail] = useState<string>('')
+    const [password, setPassword] = useState<string>('')
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            const res = await fetch("/api/login", {
+            const res = await fetch("/api/user/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -21,11 +25,11 @@ const login = () => {
                     password
                 })
             })
-            /*let response = await res.json()
-            if(response.success){
-              setEmail('')
-              setPassword('')     
-             }*/
+            if (!res.ok) {
+                const errorData = await res.json(); 
+                throw new Error(errorData.message || "Login failed");
+            }
+            router.push("/");
 
         } catch (error) {
             console.log("error during login ", error)

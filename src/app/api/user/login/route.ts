@@ -30,19 +30,13 @@ export async function POST(request: NextRequest) {
                 email: user.email
             },
             process.env.ACCESS_TOKEN_SECRET!,
-            { 
-                expiresIn: "15m"
-            }
+            { expiresIn: "15m" }
         );
 
         const refreshToken = jwt.sign(
-            { username: user.username,
-                
-            },
+            { username: user.username },
             process.env.REFRESH_TOKEN_SECRET!,
-            { 
-                expiresIn: "7d"
-            }
+            { expiresIn: "7d" }
         );
 
         user.refreshToken = refreshToken;
