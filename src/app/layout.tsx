@@ -5,6 +5,7 @@ import { CartContextProvider } from './context/CartContext';
 import { Toaster } from "react-hot-toast";
 import { auth } from "@/auth";
 import Header from "./components/Header";
+import { AuthProvider } from "./context/AuthContext";
 
 const pop = Poppins({ subsets: ["latin"], weight: '400' })
 
@@ -26,14 +27,16 @@ export default async function RootLayout({
       <body
         className={`${pop.className} antialiased `}
       >
-        <CartContextProvider>
-          <Header user={user} />
-          {children}
-          <Toaster
-            position="top-center"
-            reverseOrder={false}
-          />
-        </CartContextProvider>
+        <AuthProvider>
+          <CartContextProvider>
+            <Header user={user} />
+            {children}
+            <Toaster
+              position="top-center"
+              reverseOrder={false}
+            />
+          </CartContextProvider>
+        </AuthProvider>
       </body>
     </html>
   );
