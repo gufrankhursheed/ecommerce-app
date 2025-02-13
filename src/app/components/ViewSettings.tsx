@@ -6,6 +6,24 @@ import { User } from "@auth/core/types";
 export default function ViewSettings({ user }: { user?: User }) {
     const { currentUser } = useAuth();
 
+    const handleLogout = async () => {
+        try {
+            const res = await fetch("/api/user/logout", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email: user ? user.email : currentUser.email }), 
+            });
+    
+            if (res.ok) {
+                window.location.href = "/login"; 
+            } else {
+                console.error("Logout failed");
+            }
+        } catch (error) {
+            console.error("Error logging out", error);
+        }
+    }
+
     return user || currentUser ? (
         <header className="bg-white">
             <div className="mx-auto max-w-screen-xl px-4 py-5 sm:px-6 sm:py-10 lg:px-8">
@@ -35,6 +53,7 @@ export default function ViewSettings({ user }: { user?: User }) {
 
                     <div className="flex items-center gap-4">
                         <button
+                            onClick={handleLogout}
                             className="inline-flex items-center justify-center gap-1.5 rounded border border-red-200 bg-white px-5 py-3 text-red-900 transition hover:bg-red-200 hover:text-red-700 focus:outline-none focus:ring"
                         >
                             <span className="text-sm font-medium"> Log out </span>
