@@ -4,7 +4,7 @@ import { createContext, useContext, useState, useEffect } from "react";
 
 interface Currentuser {
     _id: string;
-    name: string;
+    username: string;
     email: string;
 }
 

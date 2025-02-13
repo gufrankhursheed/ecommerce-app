@@ -279,7 +279,7 @@ export default function CartComponent({ user }: { user?: User }) {
                                         </div>
                                         <div className="col-span-6">
                                             <label htmlFor="example8" className="mb-1 block text-md font-medium text-gray-700">Full name</label>
-                                            <input type="text" value={user?.name ?? currentUser.name ?? ""} onChange={() => { }} id="example8" className="block p-3 border w-full rounded-md border-gray-300 shadow-sm disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500" placeholder="John Mark" />
+                                            <input type="text" value={user?.name ?? currentUser.username ?? ""} onChange={() => { }} id="example8" className="block p-3 border w-full rounded-md border-gray-300 shadow-sm disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500" placeholder="John Mark" />
                                         </div>
                                         <div className="col-span-12">
                                             <label htmlFor="example9" className="mb-1 block text-md font-medium text-gray-700">Address</label>
