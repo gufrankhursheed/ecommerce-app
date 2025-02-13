@@ -10,6 +10,7 @@ import { handleSignIn } from "@/app/actions/signInAction";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Success from "./Success";
+import { useAuth } from "../context/AuthContext";
 
 interface ProductImage {
     id: string;
@@ -37,6 +38,7 @@ export default function CartComponent({ user }: { user?: User }) {
     const [zip, setZip] = useState('');
     const searchParams = useSearchParams();
     const [isSuccess, setIsSuccess] = useState(false);
+    const { currentUser } = useAuth();
 
     useEffect(() => {
         const successParam = searchParams?.get("success");
@@ -259,7 +261,7 @@ export default function CartComponent({ user }: { user?: User }) {
                 ''
             ) : (
                 <div className="md:1/3 mt-16 md:mt-6 ">
-                    {user ? (
+                    {user || currentUser ? (
                         <div>
                             <header className="text-start flex flex-col w-full">
                                 <h1 className="text-xl font-bold text-gray-900 sm:text-3xl">
@@ -273,11 +275,11 @@ export default function CartComponent({ user }: { user?: User }) {
                                     <div className="grid grid-cols-12 gap-5">
                                         <div className="col-span-6">
                                             <label htmlFor="example7" className="mb-1 block text-md font-medium text-gray-700">Email</label>
-                                            <input type="email" value={user.email ?? ""} onChange={() => { }} id="example7" className="block p-3 border w-full rounded-md border-gray-300 shadow-sm disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500" placeholder="you@email.com" />
+                                            <input type="email" value={user?.email ?? currentUser.email ?? ""} onChange={() => { }} id="example7" className="block p-3 border w-full rounded-md border-gray-300 shadow-sm disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500" placeholder="you@email.com" />
                                         </div>
                                         <div className="col-span-6">
                                             <label htmlFor="example8" className="mb-1 block text-md font-medium text-gray-700">Full name</label>
-                                            <input type="text" value={user.name ?? ""} onChange={() => { }} id="example8" className="block p-3 border w-full rounded-md border-gray-300 shadow-sm disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500" placeholder="you@email.com" />
+                                            <input type="text" value={user?.name ?? currentUser.name ?? ""} onChange={() => { }} id="example8" className="block p-3 border w-full rounded-md border-gray-300 shadow-sm disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500" placeholder="John Mark" />
                                         </div>
                                         <div className="col-span-12">
                                             <label htmlFor="example9" className="mb-1 block text-md font-medium text-gray-700">Address</label>
