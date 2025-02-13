@@ -9,7 +9,7 @@ interface Currentuser {
 }
 
 interface AuthContextType {
-    user: Currentuser;
+    currentUser: Currentuser;
     setCurrentUser: (user: Currentuser) => void;
     fetchUser: () => Promise<void>;
 }
@@ -26,10 +26,12 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [currentUser, setCurrentUser] = useState<any>(null);
 
-    // Fetch user function
     const fetchUser = async () => {
         try {
-            const res = await fetch("/api/user", { credentials: "include" });
+            const res = await fetch("/api/user", {
+                method: "GET",
+                credentials: "include", 
+            });
 
             if (!res.ok) {
                 setCurrentUser(null);
@@ -37,7 +39,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             }
 
             const data = await res.json();
-            console.log("User fetched:", data);
 
             setCurrentUser(data.user);
         } catch (error) {
@@ -50,7 +51,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ user: currentUser, setCurrentUser, fetchUser }}>
+        <AuthContext.Provider value={{ currentUser, setCurrentUser, fetchUser }}>
             {children}
         </AuthContext.Provider>
     );

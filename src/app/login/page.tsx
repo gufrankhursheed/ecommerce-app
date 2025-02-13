@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import Link from 'next/link'
 import { handleSignIn } from "@/app/actions/signInAction";
 import { useRouter } from 'next/navigation';
+import { useAuth } from '../context/AuthContext';
 
 const login = () => {
 
@@ -11,6 +12,7 @@ const login = () => {
 
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
+    const { setCurrentUser } = useAuth();
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -29,6 +31,10 @@ const login = () => {
                 const errorData = await res.json(); 
                 throw new Error(errorData.message || "Login failed");
             }
+
+            const data = await res.json();
+            setCurrentUser(data.user); 
+
             router.push("/");
 
         } catch (error) {

@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
         user.refreshToken = refreshToken;
         await user.save();
 
-        const response = NextResponse.json({ message: "Login successful" }, { status: 200 });
+        const response = NextResponse.json({ message: "Login successful", user }, { status: 200 });
         response.cookies.set("accessToken", accessToken, {
             httpOnly: true,
             secure: true

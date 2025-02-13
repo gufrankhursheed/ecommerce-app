@@ -1,42 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useCart } from "../context/CartContext";
 import { User } from "@auth/core/types";
+import { useAuth } from "../context/AuthContext";
 
-interface Currentuser {
-    _id: string;
-    name: string;
-    email: string;
-}
 
 export default function Header({ user }: { user?: User }) {
-    const [currentUser, setCurrentUser] = useState<Currentuser | null>(null);
+    const { currentUser } = useAuth();
     const { cartProducts } = useCart();
-
-    useEffect(() => {
-        const fetchUser = async () => {
-            try {
-                const res = await fetch("/api/user", {
-                    method: "GET",
-                    credentials: "include",  // Ensures cookies are sent
-                });
-
-                if (!res.ok) return
-
-                const data = await res.json();
-
-                if (data.user) {
-                    setCurrentUser(data.user);
-                }
-            } catch (error) {
-                console.error("Error fetching user:", error);
-            }
-        };
-
-        fetchUser();
-    }, []);
 
     return <>
         <header className="bg-white border-b sticky z-50 top-0">

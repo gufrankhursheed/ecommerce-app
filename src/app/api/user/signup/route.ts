@@ -9,7 +9,7 @@ export async function POST(request: NextRequest) {
 
         const { username, email, password } = await request.json();
 
-        if (!username || !email || !password || username.trim() === "" || email.trim() === "" || password.trim() === "") {
+        if (!username || !email || !password) {
             return NextResponse.json({ message: "All fields are required" }, { status: 400 });
         }
 
