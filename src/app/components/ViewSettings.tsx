@@ -10,8 +10,7 @@ export default function ViewSettings({ user }: { user?: User }) {
         try {
             const res = await fetch("/api/user/logout", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email: user ? user.email : currentUser.email }), 
+                credentials: "include",
             });
     
             if (res.ok) {
