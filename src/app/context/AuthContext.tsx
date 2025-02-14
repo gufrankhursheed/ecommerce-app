@@ -14,6 +14,7 @@ interface AuthContextType {
     fetchUser: () => Promise<void>;
     refreshToken: () => Promise<void>;
     logout: () => void;
+    isTokenExpired: boolean;
 }
 
 
@@ -27,6 +28,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [currentUser, setCurrentUser] = useState<any>(null);
+    const [isTokenExpired, setIsTokenExpired] = useState(false);
 
     const fetchUser = async () => {
         try {
@@ -43,6 +45,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             const data = await res.json();
 
             setCurrentUser(data.user);
+            setIsTokenExpired(false);
         } catch (error) {
             console.error("Error fetching user:", error);
         }
@@ -97,7 +100,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ currentUser, setCurrentUser, fetchUser, refreshToken, logout }}>
+        <AuthContext.Provider value={{ currentUser, setCurrentUser, fetchUser, refreshToken, logout, isTokenExpired }}>
             {children}
         </AuthContext.Provider>
     );

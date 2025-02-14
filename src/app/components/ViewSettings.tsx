@@ -4,7 +4,7 @@ import { useAuth } from "../context/AuthContext";
 import { User } from "@auth/core/types";
 
 export default function ViewSettings({ user }: { user?: User }) {
-    const { currentUser } = useAuth();
+    const { currentUser, isTokenExpired, refreshToken } = useAuth();
 
     const handleLogout = async () => {
         try {
@@ -21,6 +21,20 @@ export default function ViewSettings({ user }: { user?: User }) {
         } catch (error) {
             console.error("Error logging out", error);
         }
+    }
+
+    if (isTokenExpired) {
+        return (
+            <div className="flex flex-col items-center justify-center h-screen">
+                <p className="text-red-500 mb-4">Your session has expired. Please refresh your token.</p>
+                <button
+                    onClick={refreshToken}
+                    className="px-5 py-3 bg-blue-600 text-white rounded hover:bg-blue-500"
+                >
+                    Refresh Token
+                </button>
+            </div>
+        );
     }
 
     return user || currentUser ? (
