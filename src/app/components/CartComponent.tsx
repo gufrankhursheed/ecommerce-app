@@ -6,7 +6,6 @@ import toast from "react-hot-toast";
 import Link from "next/link";
 import Spinner from "./Spinner";
 import { User } from "@auth/core/types";
-import { handleSignIn } from "@/app/actions/signInAction";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Success from "./Success";
@@ -313,9 +312,12 @@ export default function CartComponent({ user }: { user?: User }) {
                                 <p className="mt-2">We use your Account details for shipping.</p>
                             </header>
 
-                            <form action={handleSignIn}>
-                                <button className="inline-flex items-center justify-center gap-1.5 rounded border border-orange-500 bg-orange-500 px-5 py-3 text-white transition hover:border-orange-400 hover:bg-orange-400 focus:outline-none focus:ring" type="submit"> Continue with Google </button>
-                            </form>
+                            <Link
+                                className="inline-flex items-center justify-center gap-1.5 my-2 rounded border border-orange-500 bg-orange-500 px-2 py-1 md:px-5 md:py-1 text-white transition hover:border-orange-400 hover:bg-orange-400 focus:outline-none focus:ring"
+                                href="/login"
+                            >
+                                Log in
+                            </Link>
                         </div>
                     )}
                 </div>

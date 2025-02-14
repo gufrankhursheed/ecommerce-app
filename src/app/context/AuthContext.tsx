@@ -34,10 +34,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         try {
             const res = await fetch("/api/user", {
                 method: "GET",
-                credentials: "include", 
+                credentials: "include",
             });
 
             if (!res.ok) {
+                if (res.status === 401) {
+                    setIsTokenExpired(true);
+                }
                 setCurrentUser(null);
                 return;
             }
@@ -53,25 +56,29 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     const refreshToken = async () => {
         try {
-            const res = await fetch("/api/refresh", {
+            const res = await fetch("/api/user/refresh", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 credentials: "include",
                 body: JSON.stringify({ email: currentUser?.email }),
             });
-
+    
+            const data = await res.json();
+            console.log("Refresh Token Response:", data); // Debugging response
+    
             if (res.ok) {
                 console.log("Access token refreshed successfully.");
-                await fetchUser();
+                setIsTokenExpired(false);
+                fetchUser();  // Fetch updated user data
             } else {
-                console.error("Refresh token failed, logging out...");
-                logout();
+                console.error("Refresh token failed:", data.message);
+                setIsTokenExpired(true);
             }
         } catch (error) {
             console.error("Error refreshing token:", error);
-            logout();
+            setIsTokenExpired(true);
         }
-    };
+    }
 
     const logout = async () => {
         try {
@@ -88,12 +95,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     };
 
     useEffect(() => {
-        const interval = setInterval(() => {
-            refreshToken();
-        }, 14 * 60 * 1000); // 14 minutes
+        if (!isTokenExpired) {
+            const interval = setInterval(() => {
+                refreshToken();
+            }, 14 * 60 * 1000); 
 
-        return () => clearInterval(interval);
-    }, [currentUser]);
+            return () => clearInterval(interval);
+        }
+    }, [currentUser, isTokenExpired]);
 
     useEffect(() => {
         fetchUser();
