@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { createContext, useContext, useState, useEffect } from "react";
 
 interface Currentuser {
@@ -15,6 +16,7 @@ interface AuthContextType {
     refreshToken: () => Promise<void>;
     logout: () => void;
     isTokenExpired: boolean;
+    loading: boolean;
 }
 
 
@@ -27,15 +29,21 @@ export const useAuth = () => {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+    const pathname = usePathname();
     const [currentUser, setCurrentUser] = useState<any>(null);
     const [isTokenExpired, setIsTokenExpired] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     const fetchUser = async () => {
         try {
+            setLoading(true)
+
             const res = await fetch("/api/user", {
                 method: "GET",
                 credentials: "include",
             });
+
+            console.log("Fetch status:", res.status); 
 
             if (!res.ok) {
                 if (res.status === 401) {
@@ -51,6 +59,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             setIsTokenExpired(false);
         } catch (error) {
             console.error("Error fetching user:", error);
+        } finally {
+            setLoading(false)
         }
     };
 
@@ -64,12 +74,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             });
     
             const data = await res.json();
-            console.log("Refresh Token Response:", data); // Debugging response
+            console.log("Refresh Token Response:", data); 
     
             if (res.ok) {
                 console.log("Access token refreshed successfully.");
                 setIsTokenExpired(false);
-                fetchUser();  // Fetch updated user data
+                fetchUser();  
             } else {
                 console.error("Refresh token failed:", data.message);
                 setIsTokenExpired(true);
@@ -82,7 +92,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     const logout = async () => {
         try {
-            await fetch("/api/logout", {
+            await fetch("/api/user/logout", {
                 method: "POST",
                 credentials: "include",
             });
@@ -105,11 +115,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }, [currentUser, isTokenExpired]);
 
     useEffect(() => {
+        console.log("Fetching user...");
         fetchUser();
-    }, []);
+    }, [pathname]);
 
     return (
-        <AuthContext.Provider value={{ currentUser, setCurrentUser, fetchUser, refreshToken, logout, isTokenExpired }}>
+        <AuthContext.Provider value={{ currentUser, setCurrentUser, fetchUser, refreshToken, logout, isTokenExpired, loading }}>
             {children}
         </AuthContext.Provider>
     );

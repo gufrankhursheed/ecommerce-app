@@ -10,6 +10,8 @@ export async function GET(request: NextRequest) {
 
         const token = request.cookies.get("accessToken")?.value;
 
+        console.log("Token from cookies:", token);
+
         if (!token) {
             return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
         }

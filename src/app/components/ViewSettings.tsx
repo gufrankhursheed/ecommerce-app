@@ -2,9 +2,10 @@
 
 import { useAuth } from "../context/AuthContext";
 import { User } from "@auth/core/types";
+import Spinner from "./Spinner";
 
 export default function ViewSettings({ user }: { user?: User }) {
-    const { currentUser, isTokenExpired, refreshToken } = useAuth();
+    const { currentUser, isTokenExpired, refreshToken, loading } = useAuth();
 
     const handleLogout = async () => {
         try {
@@ -12,9 +13,9 @@ export default function ViewSettings({ user }: { user?: User }) {
                 method: "POST",
                 credentials: "include",
             });
-    
+
             if (res.ok) {
-                window.location.href = "/login"; 
+                window.location.href = "/login";
             } else {
                 console.error("Logout failed");
             }
@@ -23,7 +24,15 @@ export default function ViewSettings({ user }: { user?: User }) {
         }
     }
 
-    if (isTokenExpired) {
+    if (loading) {
+        return (
+            <div className='flex items-center justify-center w-screen h-screen'>
+                <Spinner />
+            </div>
+        );
+    }
+
+    if (isTokenExpired && !loading) {
         return (
             <div className="flex flex-col items-center justify-center h-screen">
                 <p className="text-red-500 mb-4">Your session has expired. Please refresh your token.</p>
@@ -57,7 +66,7 @@ export default function ViewSettings({ user }: { user?: User }) {
                                     ></path>
                                 </svg>
                             </div>
-                            <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">{user ? user.name : currentUser.username }</h1>
+                            <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">{user ? user.name : currentUser.username}</h1>
                         </div>
                         <p className="mt-1.5 text-md text-gray-500">
                             {user ? user.email : currentUser.email}
